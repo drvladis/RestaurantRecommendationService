@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Places</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+    th, td { border: 1px solid #000000; padding: 8px; text-align: left; }
+    th { background: #c5c5c5; }
+    .pager { margin-top: 12px; display: flex; gap: 8px; align-items: center; }
+  </style>
+</head>
+
+<body>
+  <h1>Список заведений</h1>
+  <h4>Всего записей: {{ .Total }}</h4>
+
+  <table id="restaurantsTable" aria-label="Список ресторанов">
+    <thead>
+        <th style="width: 5%;">ID</th>
+        <th style="width: 30%;">Название</th>
+        <th style="width: 45%;">Адрес</th>
+        <th style="width: 20%;">Телефон</th>
+    </thead>
+        {{range .Places}}
+    <tbody id="restaurantsBody">
+        <td>{{.ID}}</td>
+        <td>{{.Name}}</td>
+        <td>{{.Address}}</td>
+        <td>{{.Phone}}</td>
+    </tbody>
+      {{end}}
+  </table>
+
+  <div class="pager" aria-label="Пагинация">
+    <a href="/?page={{ .First }}">В начало</a>
+    <span></span>
+    {{if gt .Page 0}}
+    <a href="?page={{ .Prev }}">Назад</a>
+    {{end}}
+    <span></span>
+    {{if lt .Page .Last}}
+    <a href="?page={{ .Next }}">Далее</a>
+    {{end}}
+    <span></span>
+    <a href="/?page={{ .Last }}">В конец</a>
+  </div>
+</body>
+</html>
